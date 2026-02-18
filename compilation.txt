@@ -1,0 +1,29 @@
+:: Compiler tous les fichiers Java
+javac -encoding UTF-8 -d %TEMP%\jeuDevinnette_out server\Server.java server\ClientHandler.java client\Client.java client\ClientGUI.java
+
+:: ============================================================
+:: UTILISATION EN RESEAU (plusieurs ordinateurs)
+:: ============================================================
+:: 1. Sur le PC SERVEUR : lancer le serveur. Il affichera son adresse IP.
+java -cp %TEMP%\jeuDevinnette_out server.Server
+
+:: 2. Sur chaque PC CLIENT : lancer le client graphique.
+::    Une boîte de dialogue demandera l'IP du serveur.
+::    Entrez l'IP affichée par le serveur (ex: 192.168.1.10).
+java -cp %TEMP%\jeuDevinnette_out client.ClientGUI
+
+:: (Optionnel) Client console (demande aussi l'IP au démarrage)
+java -cp %TEMP%\jeuDevinnette_out client.Client
+
+:: IMPORTANT : Les PCs doivent être sur le même réseau Wi-Fi/LAN.
+:: Si le pare-feu bloque, autorisez Java sur le port 5000.
+
+
+
+========================================
+  Serveur de Devinette démarré !
+  Port : 5000
+  Adresses IP de ce PC :
+    -> 172.16.7.105  (Intel(R) Dual Band Wireless-N 7265)
+  Les clients doivent entrer une de ces IP.
+========================================

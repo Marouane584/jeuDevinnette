@@ -7,10 +7,16 @@ import java.util.Scanner;
 public class Client {
 
     public static void main(String[] args) {
-        String serverIP = "localhost"; // ou IP du serveur
+        java.util.Scanner ipScanner = new java.util.Scanner(System.in);
+        System.out.print("Entrez l'IP du serveur (ou appuyez Entrée pour localhost) : ");
+        String serverIP = ipScanner.nextLine().trim();
+        if (serverIP.isEmpty()) {
+            serverIP = "localhost";
+        }
         int port = 5000;
 
         try {
+            System.out.println("Connexion à " + serverIP + ":" + port + "...");
             Socket socket = new Socket(serverIP, port);
 
             BufferedReader in = new BufferedReader(
