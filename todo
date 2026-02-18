@@ -1,0 +1,14 @@
+Sur ton ordinateur (serveur) : 
+    ipconfig
+
+Cherche : 
+    Adresse IPv4 . . . . . . . . . : 192.168.x.x
+    exemple : 192.168.43.12
+
+Sur l’ordinateur client, dans Client.java :
+    String serverIP = "192.168.43.12"; // IP du serveur
+PAS localhost
+✔ IP réelle du serveur
+
+Sur l’ordinateur client :
+    java -cp client/ client.Client
