@@ -1,0 +1,31 @@
+# Todo List
+
+- [x] Lire les fichiers sources
+  - Ouvrir et lire `client/Client.java`, `server/Server.java`, `server/ClientHandler.java` pour comprendre le code.
+- [x] Résumer chaque fichier
+  - `server/Server.java`: point d'entrée du serveur. Démarre un `ServerSocket` sur le port `5000`, attend les connexions, et pour chaque client crée un `ClientHandler` exécuté dans un nouveau thread.
+  - `server/ClientHandler.java`: gère une connexion cliente. Envoie "Bienvenue sur le serveur de devinette", lit les lignes envoyées par le client, affiche `Reçu : <message>` côté serveur et renvoie `Echo : <message>`. Les ressources (streams/sockets) ne sont pas fermées explicitement.
+  - `client/Client.java`: client console simple. Se connecte à `localhost:5000`, lit le message de bienvenue, envoie les lignes saisies par l'utilisateur et affiche les réponses du serveur.
+- [-] Résumé global et suggestions
+  - (En cours) Fournir un résumé global du fonctionnement du programme et proposer des améliorations (fermeture propre des ressources, pool de threads, protocole de jeu, gestion d'encodage, etc.).
+
+## Formulations pour répondre au professeur
+
+- **Réponse courte :** "Notre projet est un client et un serveur Java qui communiquent par TCP ; le serveur accepte plusieurs clients en parallèle et répond aux messages reçus (actuellement en mode 'écho')."
+
+- **Réponse moyenne :** "Le projet implémente une application réseau simple en Java : un serveur multithread écoute sur le port 5000 et crée un thread `ClientHandler` pour chaque client connecté. Le client est une application console qui se connecte au serveur, envoie des lignes de texte et affiche les réponses. Aujourd’hui le serveur renvoie un message de bienvenue puis répond à chaque ligne envoyée par le client avec `Echo : <message>`. Le protocole utilisé est basé sur des lignes de texte (readLine / println)."
+
+- **Réponse détaillée :** "Fonctionnalités principales :
+  - Serveur : écoute sur le port 5000, accepte les connexions et gère chaque client dans un thread séparé.
+  - Handler : envoie un message de bienvenue, lit les lignes venant du client, logge `Reçu : ...` côté serveur, et renvoie `Echo : <message>`.
+  - Client : application console qui lit la saisie utilisateur, envoie des lignes au serveur, et affiche la réponse.
+  - Communication : sockets TCP et flux de caractères (BufferedReader/PrintWriter).
+  - Limitations connues : actuellement c’est un service d’écho (pas encore de logique de jeu), et il n’y a pas de fermeture explicite des ressources ni d’ExecutorService pour limiter les threads."
+
+- **Phrase à dire à l'oral (naturel) :** "Notre application est un serveur-client Java. Le serveur gère plusieurs connexions en parallèle et renvoie une réponse pour chaque message reçu (c’est pour l’instant un écho). L’idée est de fournir une base pour ensuite implémenter un vrai jeu de devinette (par exemple : générer un nombre secret, recevoir des propositions et répondre plus/moins)."
+
+- **Optionnel - suite possible :** "Si vous le souhaitez, nous pouvons transformer le serveur écho en un jeu de devinette complet (génération d'un nombre secret, vérification des propositions, comptage de tentatives) et améliorer la gestion des ressources (fermeture des streams, pool de threads)."
+
+- [x] Implémenter le jeu de devinette par mot
+  - Serveur : choisit un mot secret aléatoire parmi une petite liste, accepte les commandes `indice`, `recommencer`, `quitter`, et répond `Correct !` ou `Incorrect.` selon les propositions.
+  - Client : lit en continu les messages du serveur et permet d'envoyer les commandes/propositions depuis la console.
